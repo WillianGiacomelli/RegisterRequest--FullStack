@@ -136,7 +136,7 @@ const apiUrl = 'https://localhost:7146/api/Pedidos'; // <-- ATUALIZE ESTA LINHA!
 └── README.md       
 ```   
 
-### **📁 Estrutura do Projeto**
+### ** Endpoints da API**
 A API expõe os seguintes endpoints:
 
 - POST /api/request: Cria um novo pedido. Espera um JSON no corpo da requisição com os dados do pedido e seus itens.
