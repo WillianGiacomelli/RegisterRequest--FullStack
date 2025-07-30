@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using requestAPI.Interfaces.Services;
 using requestpAPI.Data;
 using requestpAPI.Models;
 
@@ -8,33 +9,26 @@ namespace requestpAPI.Controllers;
 
 [ApiController]
 [Route("api/request")]
-public class RequestController : ControllerBase
+public class RequestController(IRequestService requestService) : ControllerBase
 {
-    private readonly RequestContext _context;
-    public RequestController(RequestContext context)
-    {
-        _context = context;
-    }
+    private readonly IRequestService _requestService = requestService;
 
     // POST: /api/request
     [HttpPost]
     public async Task<IActionResult> CreateRequest([FromBody] Request novoPedido)
     {
-        if (novoPedido == null || !novoPedido.Items.Any())
-        {
-            return BadRequest("Dados do pedido inválidos ou sem itens.");
-        }
-
         try
         {
-            _context.Request.Add(novoPedido);
-            await _context.SaveChangesAsync();
-
-            return Ok(novoPedido);
+            var requestCreated = await _requestService.CreateRequestAsync(novoPedido);
+            return CreatedAtAction(nameof(CreateRequest), new { id = requestCreated.Id }, requestCreated);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, $"Erro interno ao salvar o pedido: {ex.Message}");
+            return StatusCode(500, $"Erro interno ao criar o pedido: {ex.Message}");
         }
     }
 
@@ -44,17 +38,14 @@ public class RequestController : ControllerBase
     {
         try
         {
-            var ultimoPedido = await _context.Request
-                .Include(p => p.Items)
-                .OrderByDescending(p => p.Id)
-                .FirstOrDefaultAsync();
+            var lastRequest = await _requestService.GetLastRequestAsync();
 
-            if (ultimoPedido == null)
+            if (lastRequest == null)
             {
                 return NotFound("Nenhum pedido encontrado.");
             }
 
-            return Ok(ultimoPedido);
+            return Ok(lastRequest);
         }
         catch (Exception ex)
         {

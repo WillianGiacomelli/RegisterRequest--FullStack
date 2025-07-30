@@ -1,4 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using requestAPI.Interfaces.Repositories;
+using requestAPI.Interfaces.Services;
+using requestAPI.Repositories;
+using requestAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +11,9 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<requestpAPI.Data.RequestContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
 );
+
+builder.Services.AddScoped<IRequestRepository, RequestRepository>();
+builder.Services.AddScoped<IRequestService, RequestService>();
 
 builder.Services.AddCors(options =>
 {

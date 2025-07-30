@@ -1,6 +1,6 @@
 # Sistema de Cadastro de Pedidos (Mini-Projeto Full Stack)
 
-Este é um mini-projeto de aprendizado que demonstra a construção de uma aplicação web Full Stack do zero. A aplicação consiste em um formulário para criar e carregar pedidos de venda, utilizando tecnologias modernas no frontend e no backend.
+Este é um mini-projeto que demonstra a construção de uma aplicação web Full Stack do zero. A aplicação consiste em um formulário para criar e carregar pedidos de venda, utilizando tecnologias modernas no frontend e no backend.
 
 ## ✨ Funcionalidades
 
@@ -33,6 +33,10 @@ Este projeto é dividido em duas partes principais:
 
 -   **MySQL 8.0**: Banco de dados relacional para armazenar os dados dos pedidos.
 -   **Docker / Docker Compose**: Para criar e gerenciar o container do banco de dados MySQL de forma isolada e consistente.
+
+## Visualização do Projeto
+
+![image](/frontend/assets/img/execution.png)
 
 ## 🚀 Como Executar o Projeto
 
@@ -94,15 +98,43 @@ const apiUrl = 'https://localhost:7146/api/Pedidos'; // <-- ATUALIZE ESTA LINHA!
 4.3 - Finalmente, abra o arquivo frontend/index.html diretamente no seu navegador de preferência. Para uma melhor experiência de desenvolvimento, utilize a extensão "Live Server" do Visual Studio Code.
 
 ### **📁 Estrutura do Projeto**
-├── backend/              
-│   └── requestAPI/        
-├── frontend/             
-│   ├── css/style.css
-│   ├── js/script.js
+```
+├── backend/
+│   ├── requestAPI.sln
+│   ├── .gitignore
+│   └── requestAPI/
+│       ├── Controllers/
+│       │   └── RequestController.cs
+│       ├── Data/
+│       │   └── RequestContext.cs
+│       ├── Interfaces/
+│       │   ├── IRequestRepository.cs
+│       │   └── IRequestService.cs
+│       ├── Models/
+│       │   ├── Base.cs
+│       │   ├── Request.cs
+│       │   └── RequestItem.cs
+│       ├── Repositories/
+│       │   └── RequestRepository.cs
+│       ├── Services/
+│       │   └── RequestService.cs
+│       ├── appsettings.json
+│       ├── Program.cs
+│       └── requestAPI.csproj
+│
+├── frontend/
+│   ├── assets/
+│   │   ├── css/
+│   │   │   └── style.css
+│   │   ├── js/
+│   │   │   └── script.js
+│   │   └── img/
+│   │       └── execution.png
 │   └── index.html
-├── .gitignore            
-├── docker-compose.yml    
-└── README.md             
+│
+├── docker-compose.yml
+└── README.md       
+```   
 
 ### **📁 Estrutura do Projeto**
 A API expõe os seguintes endpoints:
