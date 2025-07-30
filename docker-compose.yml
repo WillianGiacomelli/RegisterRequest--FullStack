@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  db_mysql_request:
+    image: mysql:8.0
+    container_name: mysql-request-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: '1234'
+      MYSQL_DATABASE: 'RequestDB'
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_request_data:/var/lib/mysql
+
+volumes:
+  mysql_request_data:
